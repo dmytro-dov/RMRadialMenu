@@ -25,7 +25,7 @@
 }
 -(NSInteger) numberOfItemsInRadialMenuView:(RMRadialMenuView *)radialMenuView
 {
-    return 15;
+    return 5;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

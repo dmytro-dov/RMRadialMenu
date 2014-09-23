@@ -15,7 +15,7 @@
 
 @required
 -(NSInteger) numberOfItemsInRadialMenuView: (RMRadialMenuView *) radialMenuView;
--(RMRadialMenuItem *) radialMenuView: (RMRadialMenuView *) radialMenuVIew itemAtIndex: (NSInteger) index;
+-(RMRadialMenuItem *) radialMenuView: (RMRadialMenuView *) radialMenuView itemAtIndex: (NSInteger) index;
 
 @end
 

@@ -44,24 +44,30 @@
     UIFont* font = [UIFont fontWithName:@"Arial" size:12];
     UIColor* textColor = [UIColor redColor];
     NSDictionary* stringAttrs = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : textColor };
-    
-    
-    
     NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:@"." attributes:stringAttrs];
     NSInteger n = [_dataSource numberOfItemsInRadialMenuView:self];
-    float sizeArc = (2*M_PI)/n - (6*M_PI/180);
-    float alpha = 0;
-    for(int i = 1; i <= n; i++)
+    double sizeArc = (2*M_PI)/n - (6*M_PI/180);
+    double alpha = 0;
+    double alphaLine = 0;
+    double angleGap = 0;
+    for(int i = 0; i < n; i++)
     {
-        
-        alpha = i* sizeArc + i *(6*M_PI/180);
-        UIBezierPath *segment= [UIBezierPath bezierPathWithArcCenter:_centre radius:33 startAngle:alpha endAngle: alpha + sizeArc clockwise:true];
-        [segment moveToPoint:_centre.x + sin(alpha)*33];
-        segment appendPath:[UIBezierPath bezierPathWithArcCenter:_centre radius:120 startAngle:alpha endAngle: alpha + sizeArc clockwise:true];
+        double c = sqrt(2*pow(33, 2)*(1-cos((6*M_PI/180))));
+        angleGap = 2*asin(c/(2*120));
+        angleGap = (6*M_PI/180) - angleGap;
+        alpha = i* sizeArc + i *(6*M_PI/180) + (6*M_PI/180)/2 - M_PI/2 - sizeArc/2 - angleGap/2;
+        alphaLine = alpha + M_PI/2;
+        UIBezierPath *segment = [UIBezierPath bezierPath];
+        [segment moveToPoint:CGPointMake(_centre.x + sin(alphaLine)*33, _centre.y - cos(alphaLine)*33)];
+        [segment addLineToPoint:CGPointMake(_centre.x + sin(alphaLine - angleGap/2)*120, _centre.y - cos(alphaLine - angleGap/2)*120)];
+        [segment addArcWithCenter:_centre radius:120 startAngle:alpha - angleGap/2 endAngle:alpha + sizeArc + angleGap/2 clockwise:true];
+        [segment addLineToPoint:CGPointMake(_centre.x + sin(alphaLine+sizeArc)*33, _centre.y - cos(alphaLine+sizeArc)*33)];
+        [segment addArcWithCenter:_centre radius:33 startAngle:alpha + sizeArc endAngle:alpha   clockwise:false];
+        [segment closePath];
         [segment stroke];
-        UIBezierPath *circleOuter= [UIBezierPath bezierPathWithArcCenter:_centre radius:120 startAngle:alpha endAngle: alpha + sizeArc clockwise:true];
-        [circleOuter stroke];
-        //[attrStr drawAtPoint:CGPointMake( _centre.x + sin(alpha) * 60, _centre.y + cos(alpha) * 60)];
+        [[UIColor colorWithRed: 30/255.0f green:30/255.0f blue:230/255.0f alpha:0.5f] setFill];
+        [segment fill];
+        [[UIBezierPath bezierPathWithArcCenter:_centre radius:1 startAngle:0 endAngle:2*M_PI clockwise:true] stroke];
     }
     //[attrStr drawAtPoint:CGPointMake(10.f, 10.f)];
     
