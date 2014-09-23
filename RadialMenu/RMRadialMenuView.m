@@ -31,20 +31,26 @@
         _centerRadius = 30;
         _centre = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         _segmentGap = 9;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapItem:)];
-        [self addGestureRecognizer:tap];
+        UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(tapItem:)];
+        [self addGestureRecognizer:swipe];
         self.backgroundColor = [UIColor clearColor];
+        s
     }
     return self;
 }
 
--(void) tapItem: (UITapGestureRecognizer *) sender
+-(void) tapItem: (UISwipeGestureRecognizer *) sender
 {
+    NSLog(@"%li", [sender direction]);
     for(RMRadialMenuItem *item in _items)
     {
-        if([item.path containsPoint:[sender locationInView:self]])
+        for(int i = 0; i < sender.numberOfTouches; i ++)
         {
-            item.fillColor = [UIColor redColor];
+            if([item.path containsPoint:[sender locationOfTouch:i inView:self]])
+            {
+                    
+                item.fillColor = [UIColor redColor];
+            }
         }
     }
     [self setNeedsDisplay];
