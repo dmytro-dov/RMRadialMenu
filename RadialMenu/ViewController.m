@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 
+
 @interface ViewController ()
 @property (nonatomic) RMRadialMenuView *radialMenuView;
 @end
@@ -17,15 +18,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     RMRadialMenuView *view = [[RMRadialMenuView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
-    
+     view.dataSource = self;
     view.backgroundColor = [UIColor redColor];
     [self.view addSubview:view];
-    view.dataSource = self;
+   
     // Do any additional setup after loading the view, typically from a nib.
 }
 -(NSInteger) numberOfItemsInRadialMenuView:(RMRadialMenuView *)radialMenuView
 {
-    return 5;
+    return 15;
+}
+
+-(RMRadialMenuItem *) radialMenuView:(RMRadialMenuView *)radialMenuView itemAtIndex:(NSInteger)index
+{
+    RMRadialMenuItem *item = [[RMRadialMenuItem alloc] init];
+    item.fillColor = [[UIColor redColor] colorWithAlphaComponent:(float)index/15];
+    
+    return item;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

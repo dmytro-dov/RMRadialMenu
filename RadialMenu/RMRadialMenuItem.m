@@ -8,7 +8,22 @@
 
 #import "RMRadialMenuItem.h"
 
+@interface RMRadialMenuItem()
+
+@property (nonatomic, retain) UIBezierPath *path;
+
+@end
+
 @implementation RMRadialMenuItem
+
+-(id) init
+{
+    if(self = [super init])
+    {
+        _fillColor = [UIColor orangeColor];
+    }
+    return self;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

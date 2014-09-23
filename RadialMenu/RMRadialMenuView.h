@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class RMRadialMenuItem;
+
 @class RMRadialMenuView;
+@class RMRadialMenuItem;
+
 
 @protocol RMRadialMenuDataSource <NSObject>
 

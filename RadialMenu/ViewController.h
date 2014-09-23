@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RMRadialMenuView.h"
+#import "RMRadialMenuItem.h"
 
 @interface ViewController : UIViewController <RMRadialMenuDataSource>
 

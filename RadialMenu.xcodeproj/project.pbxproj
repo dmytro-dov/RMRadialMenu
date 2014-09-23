@@ -16,6 +16,7 @@
 		847ED1CA19D0771C00E7D17B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847ED1C919D0771C00E7D17B /* Images.xcassets */; };
 		847ED1CD19D0771C00E7D17B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847ED1CB19D0771C00E7D17B /* LaunchScreen.xib */; };
 		847ED1D919D0771C00E7D17B /* RadialMenuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ED1D819D0771C00E7D17B /* RadialMenuTests.m */; };
+		84A2156A19D21CA300F378C1 /* RMRadialMenuItem+Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A2156919D21CA300F378C1 /* RMRadialMenuItem+Path.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		847ED1D219D0771C00E7D17B /* RadialMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadialMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		847ED1D719D0771C00E7D17B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		847ED1D819D0771C00E7D17B /* RadialMenuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadialMenuTests.m; sourceTree = "<group>"; };
+		84A2156819D21CA300F378C1 /* RMRadialMenuItem+Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMRadialMenuItem+Path.h"; sourceTree = "<group>"; };
+		84A2156919D21CA300F378C1 /* RMRadialMenuItem+Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMRadialMenuItem+Path.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,8 @@
 			children = (
 				8439EDF919D082D300E0BAC1 /* RMRadialMenuView.h */,
 				8439EDFA19D082D300E0BAC1 /* RMRadialMenuView.m */,
+				84A2156819D21CA300F378C1 /* RMRadialMenuItem+Path.h */,
+				84A2156919D21CA300F378C1 /* RMRadialMenuItem+Path.m */,
 				8439EDFC19D08C4D00E0BAC1 /* RMRadialMenuItem.h */,
 				8439EDFD19D08C4D00E0BAC1 /* RMRadialMenuItem.m */,
 			);
@@ -241,6 +246,7 @@
 			files = (
 				847ED1C519D0771C00E7D17B /* ViewController.m in Sources */,
 				8439EDFE19D08C4D00E0BAC1 /* RMRadialMenuItem.m in Sources */,
+				84A2156A19D21CA300F378C1 /* RMRadialMenuItem+Path.m in Sources */,
 				8439EDFB19D082D300E0BAC1 /* RMRadialMenuView.m in Sources */,
 				847ED1C219D0771C00E7D17B /* AppDelegate.m in Sources */,
 				847ED1BF19D0771C00E7D17B /* main.m in Sources */,

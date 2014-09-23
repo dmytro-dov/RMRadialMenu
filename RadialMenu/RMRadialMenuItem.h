@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface RMRadialMenuItem : UIView
-
+@property (nonatomic) UIColor *fillColor;
+-(id) init;
 @end

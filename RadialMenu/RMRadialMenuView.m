@@ -7,6 +7,8 @@
 //
 
 #import "RMRadialMenuView.h"
+#import "RMRadialMenuItem+Path.h"
+
 
 @interface RMRadialMenuView ()
 
@@ -24,6 +26,7 @@
     {
         _centerRadius = 30;
         _centre = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        
     }
     return self;
 }
@@ -31,7 +34,14 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     // Drawing code
+    NSMutableArray *tempItems = [NSMutableArray array];
     
+    for(int i = 0; i < [_dataSource numberOfItemsInRadialMenuView:self]; i++)
+    {
+       [tempItems addObject: [_dataSource radialMenuView:self itemAtIndex:i]];
+    }
+    _items = [NSArray arrayWithArray:tempItems];
+    NSLog(@"%li", [_items count]);
     UIBezierPath *middleCircle = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.frame.size.width/2-_centerRadius, self.frame.size.height/2-_centerRadius, 2*_centerRadius, 2*_centerRadius) ];
     [super drawRect:rect];
     [[UIColor whiteColor] setFill];
@@ -44,12 +54,14 @@
     UIFont* font = [UIFont fontWithName:@"Arial" size:12];
     UIColor* textColor = [UIColor redColor];
     NSDictionary* stringAttrs = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : textColor };
-    NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:@"." attributes:stringAttrs];
-    NSInteger n = [_dataSource numberOfItemsInRadialMenuView:self];
+    NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:@"dick in a box" attributes:stringAttrs];
+    [attrStr drawAtPoint:_centre];
+    NSInteger n = [_items count];
     double sizeArc = (2*M_PI)/n - (6*M_PI/180);
     double alpha = 0;
     double alphaLine = 0;
     double angleGap = 0;
+    NSMutableArray * segments = [NSMutableArray array];
     for(int i = 0; i < n; i++)
     {
         double c = sqrt(2*pow(33, 2)*(1-cos((6*M_PI/180))));
@@ -64,10 +76,24 @@
         [segment addLineToPoint:CGPointMake(_centre.x + sin(alphaLine+sizeArc)*33, _centre.y - cos(alphaLine+sizeArc)*33)];
         [segment addArcWithCenter:_centre radius:33 startAngle:alpha + sizeArc endAngle:alpha   clockwise:false];
         [segment closePath];
-        [segment stroke];
+        
         [[UIColor colorWithRed: 30/255.0f green:30/255.0f blue:230/255.0f alpha:0.5f] setFill];
-        [segment fill];
-        [[UIBezierPath bezierPathWithArcCenter:_centre radius:1 startAngle:0 endAngle:2*M_PI clockwise:true] stroke];
+        //[segment fill];
+        [segments addObject:segment];
+
+        //[[UIBezierPath bezierPathWithArcCenter:_centre radius:1 startAngle:0 endAngle:2*M_PI clockwise:true] stroke];
+    }
+    for(int i = 0; i < [segments count]; i++)
+    {
+        UIBezierPath *path = segments[i];
+        RMRadialMenuItem *item = (RMRadialMenuItem*) _items[i];
+        
+        item.path = path;
+        [item.fillColor setFill];
+        [[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1] setStroke];
+        [path fill];
+        [path stroke];
+        
     }
     //[attrStr drawAtPoint:CGPointMake(10.f, 10.f)];
     
