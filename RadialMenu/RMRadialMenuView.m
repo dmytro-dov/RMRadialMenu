@@ -11,6 +11,7 @@
 @interface RMRadialMenuView ()
 
 @property float centerRadius;
+@property CGPoint centre;
 
 @end
 
@@ -21,7 +22,8 @@
     self = [super initWithFrame:frame];
     if(self)
     {
-        _centerRadius = 52;
+        _centerRadius = 30;
+        _centre = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     }
     return self;
 }
@@ -29,6 +31,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     // Drawing code
+    
     UIBezierPath *middleCircle = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.frame.size.width/2-_centerRadius, self.frame.size.height/2-_centerRadius, 2*_centerRadius, 2*_centerRadius) ];
     [super drawRect:rect];
     [[UIColor whiteColor] setFill];
@@ -42,12 +45,25 @@
     UIColor* textColor = [UIColor redColor];
     NSDictionary* stringAttrs = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : textColor };
     
-    NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:@"Hello" attributes:stringAttrs];
-    for(int i = 0; i < [_dataSource numberOfItemsInRadialMenuView:self]; i++)
+    
+    
+    NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:@"." attributes:stringAttrs];
+    NSInteger n = [_dataSource numberOfItemsInRadialMenuView:self];
+    float sizeArc = (2*M_PI)/n - (6*M_PI/180);
+    float alpha = 0;
+    for(int i = 1; i <= n; i++)
     {
-        [attrStr drawAtPoint:CGPointMake(10.f, 10.f)];
+        
+        alpha = i* sizeArc + i *(6*M_PI/180);
+        UIBezierPath *segment= [UIBezierPath bezierPathWithArcCenter:_centre radius:33 startAngle:alpha endAngle: alpha + sizeArc clockwise:true];
+        [segment moveToPoint:_centre.x + sin(alpha)*33];
+        segment appendPath:[UIBezierPath bezierPathWithArcCenter:_centre radius:120 startAngle:alpha endAngle: alpha + sizeArc clockwise:true];
+        [segment stroke];
+        UIBezierPath *circleOuter= [UIBezierPath bezierPathWithArcCenter:_centre radius:120 startAngle:alpha endAngle: alpha + sizeArc clockwise:true];
+        [circleOuter stroke];
+        //[attrStr drawAtPoint:CGPointMake( _centre.x + sin(alpha) * 60, _centre.y + cos(alpha) * 60)];
     }
-    [attrStr drawAtPoint:CGPointMake(10.f, 10.f)];
+    //[attrStr drawAtPoint:CGPointMake(10.f, 10.f)];
     
 }
 

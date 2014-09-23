@@ -17,11 +17,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     RMRadialMenuView *view = [[RMRadialMenuView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+    
     view.backgroundColor = [UIColor redColor];
     [self.view addSubview:view];
+    view.dataSource = self;
     // Do any additional setup after loading the view, typically from a nib.
 }
-
+-(NSInteger) numberOfItemsInRadialMenuView:(RMRadialMenuView *)radialMenuView
+{
+    return 15;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
