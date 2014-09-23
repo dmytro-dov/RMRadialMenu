@@ -19,21 +19,20 @@
     [super viewDidLoad];
     RMRadialMenuView *view = [[RMRadialMenuView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
      view.dataSource = self;
-    view.backgroundColor = [UIColor redColor];
     [self.view addSubview:view];
+    
    
     // Do any additional setup after loading the view, typically from a nib.
 }
 -(NSInteger) numberOfItemsInRadialMenuView:(RMRadialMenuView *)radialMenuView
 {
-    return 15;
+    return 4;
 }
 
 -(RMRadialMenuItem *) radialMenuView:(RMRadialMenuView *)radialMenuView itemAtIndex:(NSInteger)index
 {
     RMRadialMenuItem *item = [[RMRadialMenuItem alloc] init];
     item.fillColor = [[UIColor redColor] colorWithAlphaComponent:(float)index/15];
-    
     return item;
 }
 - (void)didReceiveMemoryWarning {

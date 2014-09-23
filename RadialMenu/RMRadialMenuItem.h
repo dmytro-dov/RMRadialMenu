@@ -10,5 +10,6 @@
 
 @interface RMRadialMenuItem : UIView
 @property (nonatomic) UIColor *fillColor;
+@property (nonatomic) UIColor *strokeColor;
 -(id) init;
 @end

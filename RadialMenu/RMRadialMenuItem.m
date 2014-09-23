@@ -20,7 +20,8 @@
 {
     if(self = [super init])
     {
-        _fillColor = [UIColor orangeColor];
+        _fillColor = [UIColor clearColor];
+        _strokeColor = [UIColor magentaColor];
     }
     return self;
 }
