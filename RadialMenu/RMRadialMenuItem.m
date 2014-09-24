@@ -10,7 +10,7 @@
 
 @interface RMRadialMenuItem()
 
-@property (nonatomic, retain) UIBezierPath *path;
+@property (nonatomic, retain) CAShapeLayer *segmentLayer;
 
 @end
 
@@ -22,6 +22,7 @@
     {
         _fillColor = [UIColor clearColor];
         _strokeColor = [UIColor magentaColor];
+        _segmentLayer = [CAShapeLayer layer];
     }
     return self;
 }

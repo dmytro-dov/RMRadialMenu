@@ -9,7 +9,7 @@
 #import "RMRadialMenuItem+Path.h"
 
 @implementation RMRadialMenuItem (RMRadialMenuItemWithPath)
-@dynamic path;
+@dynamic segmentLayer;
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

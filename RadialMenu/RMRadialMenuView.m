@@ -31,22 +31,58 @@
         _centerRadius = 30;
         _centre = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         _segmentGap = 9;
-        UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(tapItem:)];
+        UIPanGestureRecognizer *swipe = [[UIPanGestureRecognizer alloc] initWithTarget:self  action:@selector(tapItem:)];
         [self addGestureRecognizer:swipe];
         self.backgroundColor = [UIColor clearColor];
-        s
     }
     return self;
 }
-
--(void) tapItem: (UISwipeGestureRecognizer *) sender
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"%li", [sender direction]);
+    NSLog(@"begun");
+}
+-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+    UITouch *touch = [touches anyObject];
+    NSLog(@"%f %f", [touch locationInView:self].x, [touch locationInView:self].y);
+    for(RMRadialMenuItem *item in _items)
+    {
+        for(UITouch *t in touches)
+        {
+            if([item.segmentLayer containsPoint:[t locationInView:self]])
+            {
+                item.fillColor = [UIColor redColor];
+            }
+            else
+                item.fillColor = [UIColor orangeColor];
+        }
+    }
+    //[self setNeedsDisplay];
+}
+-(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    NSLog(@"Ended %f %f", [touch locationInView:self].x, [touch locationInView:self].y);
+    for(RMRadialMenuItem *item in _items)
+    {
+        for(UITouch *t in touches)
+            if([item.segmentLayer containsPoint:[t locationInView:self]])
+            {
+                item.fillColor = [UIColor redColor];
+            }
+            else
+                item.fillColor = [UIColor orangeColor];
+    }
+    //[self setNeedsDisplay];
+}
+-(void) tapItem: (UIPanGestureRecognizer *) sender
+{
     for(RMRadialMenuItem *item in _items)
     {
         for(int i = 0; i < sender.numberOfTouches; i ++)
         {
-            if([item.path containsPoint:[sender locationOfTouch:i inView:self]])
+            if([item.segmentLayer containsPoint:[sender translationInView:self]])
             {
                     
                 item.fillColor = [UIColor redColor];
@@ -65,7 +101,7 @@
     UIBezierPath *middleCircle = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.frame.size.width/2-_centerRadius, self.frame.size.height/2-_centerRadius, 2*_centerRadius, 2*_centerRadius) ];
     [[UIColor clearColor] setFill];
     [middleCircle stroke];
-    if(!_items)
+    if(!_items || [_items count] != [_dataSource numberOfItemsInRadialMenuView:self])
     {
         NSMutableArray *tempItems = [NSMutableArray array];
         
@@ -98,7 +134,7 @@
             [segment addArcWithCenter:_centre radius:33 startAngle:alpha + sizeArc endAngle:alpha   clockwise:false];
             [segment closePath];
             RMRadialMenuItem *item = (RMRadialMenuItem*) _items[i];
-            item.path = segment;
+            item.segmentLayer.path = [segment CGPath];
             [[UIColor colorWithRed: 30/255.0f green:30/255.0f blue:230/255.0f alpha:0.5f] setFill];
             //[segment fill];
             [segments addObject:segment];
@@ -111,10 +147,14 @@
     {
         RMRadialMenuItem *item = (RMRadialMenuItem*) _items[i];
         
-        [item.fillColor setFill];
-        [item.strokeColor setStroke];
-        [item.path fill];
-        [item.path stroke];
+        item.segmentLayer.fillColor = item.fillColor.CGColor;
+        item.segmentLayer.strokeColor = item.strokeColor.CGColor;
+        for(CAShapeLayer *l in self.layer.sublayers)
+        {
+            [l removeFromSuperlayer];
+        }
+            [self.layer addSublayer:item.segmentLayer];
+        
         
     }
     //[attrStr drawAtPoint:CGPointMake(10.f, 10.f)];

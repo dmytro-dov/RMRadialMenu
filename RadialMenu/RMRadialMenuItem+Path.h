@@ -10,5 +10,5 @@
 #import "RMRadialMenuItem.h"
 
 @interface RMRadialMenuItem (RMRadialMenuItemWithPath)
-@property (nonatomic, retain) UIBezierPath *path;
+@property (nonatomic, retain) CAShapeLayer *segmentLayer;
 @end
