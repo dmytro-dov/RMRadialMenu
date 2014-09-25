@@ -11,5 +11,7 @@
 @interface RMRadialMenuItem : UIView
 @property (nonatomic) UIColor *fillColor;
 @property (nonatomic) UIColor *strokeColor;
+@property int index;
+@property (nonatomic, retain) CAShapeLayer *segmentLayer;
 -(id) init;
 @end

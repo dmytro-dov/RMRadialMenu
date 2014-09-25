@@ -10,7 +10,7 @@
 
 @interface RMRadialMenuItem()
 
-@property (nonatomic, retain) CAShapeLayer *segmentLayer;
+//@property (nonatomic, retain) CAShapeLayer *segmentLayer;
 
 @end
 
@@ -26,13 +26,29 @@
     }
     return self;
 }
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if(self)
+    {
+        _fillColor = [UIColor clearColor];
+        _strokeColor = [UIColor magentaColor];
+        _segmentLayer = [CAShapeLayer layer];
+    }
+    return self;
+}
 
-/*
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     // Drawing code
+    UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:_segmentLayer.path];
+    [_fillColor setFill];
+    [_strokeColor setStroke];
+    if(path)
+        [path fill];
 }
-*/
+
 
 @end
