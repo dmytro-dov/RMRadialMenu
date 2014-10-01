@@ -18,8 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _radialMenuView = [[RMRadialMenuView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+    _radialMenuView = [[RMRadialMenuView alloc] initWithFrame:CGRectMake(-300, -300, 300, 300)];
     _radialMenuView.dataSource = self;
+    _radialMenuView.delegate = self;
     
     _slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 300, 300, 50)];
     [self.view addSubview:_slider];
@@ -27,39 +28,20 @@
                action:@selector(valueChanged:)
      forControlEvents:UIControlEventValueChanged];
     
-   
+  [self.view addSubview:_radialMenuView];
     // Do any additional setup after loading the view, typically from a nib.
 }
 -(void) valueChanged: (UISlider *)slider
 {
     NSLog(@"Ch");
-    //[_radialMenuView setNeedsDisplay];
 }
 -(NSInteger) numberOfItemsInRadialMenuView:(RMRadialMenuView *)radialMenuView
 {
-//    NSLog(@"%f", _slider.value);
-//    return (NSInteger)(_slider.value * 100);
     return 6;
 }
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void) radialMenuView:(RMRadialMenuView *)radialMenuView selectedItemAtIndex:(NSInteger)index
 {
-    UITouch *touch = [touches anyObject];
-    [_radialMenuView setFrame:CGRectMake([touch locationInView:self.view].x -_radialMenuView.frame.size.width/2, [touch locationInView:self.view].y -_radialMenuView.frame.size.height/2, _radialMenuView.frame.size.width, _radialMenuView.frame.size.height)];
-    [self.view addSubview:_radialMenuView];
-    [UIView animateWithDuration:0.2 animations:^(void){
-        _radialMenuView.alpha = 1.0f;
-    }];
-}
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-{
-    UIView *hitView = [self.view hitTest:point withEvent:event];
-    NSLog(@"hit");
-    // If the hitView is THIS view, return the view that you want to receive the touch instead:
-    if (hitView == self.view) {
-        return _radialMenuView;
-    }
-    // Else return the hitView (as it could be one of this view's buttons):
-    return hitView;
+    NSLog(@"Index %li", index);
 }
 
 -(RMRadialMenuItem *) radialMenuView:(RMRadialMenuView *)radialMenuView itemAtIndex:(NSInteger)index

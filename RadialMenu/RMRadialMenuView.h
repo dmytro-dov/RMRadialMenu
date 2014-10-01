@@ -28,7 +28,7 @@
 
 @end
 
-@interface RMRadialMenuView : UIView
+@interface RMRadialMenuView : UIView <UIGestureRecognizerDelegate>
 @property (nonatomic) NSArray *items;
 @property (nonatomic, assign) id<RMRadialMenuDataSource> dataSource;
 @property (nonatomic, assign) id<RMRadialMenuDelegate> delegate;

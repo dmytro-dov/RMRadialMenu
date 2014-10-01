@@ -17,6 +17,7 @@
 		847ED1CD19D0771C00E7D17B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847ED1CB19D0771C00E7D17B /* LaunchScreen.xib */; };
 		847ED1D919D0771C00E7D17B /* RadialMenuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ED1D819D0771C00E7D17B /* RadialMenuTests.m */; };
 		84A2156A19D21CA300F378C1 /* RMRadialMenuItem+Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A2156919D21CA300F378C1 /* RMRadialMenuItem+Path.m */; };
+		FAAC8EF519DC6D6900F28735 /* RMTouchDownGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAC8EF419DC6D6900F28735 /* RMTouchDownGestureRecognizer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		847ED1D819D0771C00E7D17B /* RadialMenuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadialMenuTests.m; sourceTree = "<group>"; };
 		84A2156819D21CA300F378C1 /* RMRadialMenuItem+Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMRadialMenuItem+Path.h"; sourceTree = "<group>"; };
 		84A2156919D21CA300F378C1 /* RMRadialMenuItem+Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMRadialMenuItem+Path.m"; sourceTree = "<group>"; };
+		FAAC8EF319DC6D6900F28735 /* RMTouchDownGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTouchDownGestureRecognizer.h; sourceTree = "<group>"; };
+		FAAC8EF419DC6D6900F28735 /* RMTouchDownGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTouchDownGestureRecognizer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +77,8 @@
 			children = (
 				8439EDF919D082D300E0BAC1 /* RMRadialMenuView.h */,
 				8439EDFA19D082D300E0BAC1 /* RMRadialMenuView.m */,
+				FAAC8EF319DC6D6900F28735 /* RMTouchDownGestureRecognizer.h */,
+				FAAC8EF419DC6D6900F28735 /* RMTouchDownGestureRecognizer.m */,
 				84A2156819D21CA300F378C1 /* RMRadialMenuItem+Path.h */,
 				84A2156919D21CA300F378C1 /* RMRadialMenuItem+Path.m */,
 				8439EDFC19D08C4D00E0BAC1 /* RMRadialMenuItem.h */,
@@ -248,6 +253,7 @@
 				8439EDFE19D08C4D00E0BAC1 /* RMRadialMenuItem.m in Sources */,
 				84A2156A19D21CA300F378C1 /* RMRadialMenuItem+Path.m in Sources */,
 				8439EDFB19D082D300E0BAC1 /* RMRadialMenuView.m in Sources */,
+				FAAC8EF519DC6D6900F28735 /* RMTouchDownGestureRecognizer.m in Sources */,
 				847ED1C219D0771C00E7D17B /* AppDelegate.m in Sources */,
 				847ED1BF19D0771C00E7D17B /* main.m in Sources */,
 			);

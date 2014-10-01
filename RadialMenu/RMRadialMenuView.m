@@ -8,6 +8,7 @@
 
 #import "RMRadialMenuView.h"
 #import "RMRadialMenuItem+Path.h"
+#import "RMTouchDownGestureRecognizer.h"
 
 
 @interface RMRadialMenuView ()
@@ -15,6 +16,7 @@
 @property float centerRadius;
 @property float segmentGap;
 @property CGPoint centre;
+@property NSInteger selectedIndex;
 
 @property int y;
 @property (nonatomic) UIColor *prevColor;
@@ -33,63 +35,84 @@
         _segmentGap = 9;
         self.backgroundColor = [UIColor clearColor];
         self.alpha = 0.0f;
-    }
+            }
     return self;
 }
-
--(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)didMoveToSuperview
 {
-    UITouch *touch = [touches anyObject];
+   RMTouchDownPanGestureRecognizer *panRecognizer = [[RMTouchDownPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
+    [self.superview addGestureRecognizer:panRecognizer];
     
-    //NSLog(@"%f %f", [touch locationInView:self.view].x, [touch locationInView:self.view].y);
-    for(RMRadialMenuItem *item in _items)
+}
+-(void) dragged: (RMTouchDownPanGestureRecognizer *) gesture
+{
+    if(gesture.state == UIGestureRecognizerStateBegan)
     {
-        bool found = false;
+        NSLog(@"FIRST TAP");
+        [self setFrame:CGRectMake([gesture locationInView:self.superview].x -self.frame.size.width/2, [gesture locationInView:self.superview].y -self.frame.size.height/2, self.frame.size.width, self.frame.size.height)];
         
-        for(UITouch *t in touches)
+        [UIView animateWithDuration:0.2 animations:^(void){
+            self.alpha = 1.0f;
+        }];
+    }
+    if(gesture.state == UIGestureRecognizerStateChanged)
+    {
+    NSLog(@"DRAG DRAG DRAG");
+        for(RMRadialMenuItem *item in _items)
         {
-            UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:item.segmentLayer.path];
-            if([path containsPoint:[t locationInView:item]])
+            bool found = false;
+            
+            
+                UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:item.segmentLayer.path];
+                if([path containsPoint:[gesture.touch locationInView:self]])
+                {
+                    //item.fillColor = [UIColor redColor];
+                    //NSLog(@"little end %d", item.index);
+                    
+                    _selectedIndex = item.index;
+                    found = true;
+                }
+                else
+                {
+                    
+                }
+            
+            if(found)
             {
-                //item.fillColor = [UIColor redColor];
-                NSLog(@"little end %d", item.index);
-                found = true;
+                item.fillColor = [UIColor greenColor];
+                [item setNeedsDisplay];
             }
             else
             {
-                
+                item.fillColor = [UIColor orangeColor];
+                [item setNeedsDisplay];
             }
+            //item.fillColor = [UIColor orangeColor];
         }
-        if(found)
-        {
-            item.fillColor = [UIColor greenColor];
-            [item setNeedsDisplay];
-        }
-        else
+    }
+    if (gesture.state == UIGestureRecognizerStateEnded)
+    {
+        NSLog(@"ENDED TAP");
+        
+        for(RMRadialMenuItem *item in _items)
         {
             item.fillColor = [UIColor orangeColor];
             [item setNeedsDisplay];
+            //item.fillColor = [UIColor orangeColor];
         }
-        //item.fillColor = [UIColor orangeColor];
+
+        [_delegate radialMenuView:self selectedItemAtIndex:_selectedIndex];
+        
+        
+        [UIView animateWithDuration:0.2 animations:^(void){
+            self.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            [self setFrame:CGRectMake(-300, -300, self.frame.size.width, self.frame.size.height)];
+        }];
     }
-    //[self setNeedsDisplay];
+
 }
--(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    for(RMRadialMenuItem *item in _items)
-    {
-        item.fillColor = [UIColor orangeColor];
-        [item setNeedsDisplay];
-        //item.fillColor = [UIColor orangeColor];
-    }
-    [UIView animateWithDuration:0.2 animations:^(void){
-        self.alpha = 0.0f;
-    }completion:^(bool fin){
-        [self removeFromSuperview];
-    }];
-    
-    
-}
+
 
 
 // Only override drawRect: if you perform custom drawing.
