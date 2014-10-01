@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Admin. All rights reserved.
 //
 
-#import "RMTouchDownGestureRecognizer.h"
+#import "RMTouchPanGestureRecognizer.h"
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
-@implementation RMTouchDownPanGestureRecognizer
+@implementation RMTouchPanGestureRecognizer
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     if (self.state == UIGestureRecognizerStatePossible) {
         self.state = UIGestureRecognizerStateBegan;

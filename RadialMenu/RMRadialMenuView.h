@@ -10,14 +10,14 @@
 
 
 @class RMRadialMenuView;
-@class RMRadialMenuItem;
+@class RMRadialMenuItemView;
 
 
 @protocol RMRadialMenuDataSource <NSObject>
 
 @required
 -(NSInteger) numberOfItemsInRadialMenuView: (RMRadialMenuView *) radialMenuView;
--(RMRadialMenuItem *) radialMenuView: (RMRadialMenuView *) radialMenuView itemAtIndex: (NSInteger) index;
+-(RMRadialMenuItemView *) radialMenuView: (RMRadialMenuView *) radialMenuView itemAtIndex: (NSInteger) index;
 
 @end
 

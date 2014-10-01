@@ -8,8 +8,10 @@
 
 #import "RMRadialMenuView.h"
 #import "RMRadialMenuItem+Path.h"
-#import "RMTouchDownGestureRecognizer.h"
+#import "RMTouchPanGestureRecognizer.h"
 
+#define OUTER_RADIUS 140
+#define INNER_RADIUS 33
 
 @interface RMRadialMenuView ()
 
@@ -30,6 +32,7 @@
     self = [super initWithFrame:frame];
     if(self)
     {
+        _selectedIndex = -1;
         _centerRadius = 30;
         _centre = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         _segmentGap = 9;
@@ -40,16 +43,15 @@
 }
 -(void)didMoveToSuperview
 {
-   RMTouchDownPanGestureRecognizer *panRecognizer = [[RMTouchDownPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
+   RMTouchPanGestureRecognizer *panRecognizer = [[RMTouchPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragged:)];
     [self.superview addGestureRecognizer:panRecognizer];
     
 }
--(void) dragged: (RMTouchDownPanGestureRecognizer *) gesture
+-(void) dragged: (RMTouchPanGestureRecognizer *) gesture
 {
     if(gesture.state == UIGestureRecognizerStateBegan)
     {
-        NSLog(@"FIRST TAP");
-        [self setFrame:CGRectMake([gesture locationInView:self.superview].x -self.frame.size.width/2, [gesture locationInView:self.superview].y -self.frame.size.height/2, self.frame.size.width, self.frame.size.height)];
+                [self setFrame:CGRectMake([gesture locationInView:self.superview].x -self.frame.size.width/2, [gesture locationInView:self.superview].y -self.frame.size.height/2, self.frame.size.width, self.frame.size.height)];
         
         [UIView animateWithDuration:0.2 animations:^(void){
             self.alpha = 1.0f;
@@ -57,30 +59,32 @@
     }
     if(gesture.state == UIGestureRecognizerStateChanged)
     {
-    NSLog(@"DRAG DRAG DRAG");
-        for(RMRadialMenuItem *item in _items)
+        bool selected = false;
+        for(RMRadialMenuItemView *item in _items)
         {
             bool found = false;
             
             
-                UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:item.segmentLayer.path];
-                if([path containsPoint:[gesture.touch locationInView:self]])
-                {
-                    //item.fillColor = [UIColor redColor];
-                    //NSLog(@"little end %d", item.index);
-                    
-                    _selectedIndex = item.index;
-                    found = true;
-                }
-                else
-                {
-                    
-                }
+            UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:item.segmentLayer.path];
+            if([path containsPoint:[gesture.touch locationInView:self]])
+            {
+                //item.fillColor = [UIColor redColor];
+                //NSLog(@"little end %d", item.index);
+                
+                
+                found = true;
+            }
+            else
+            {
+                
+            }
             
             if(found)
             {
                 item.fillColor = [UIColor greenColor];
                 [item setNeedsDisplay];
+                _selectedIndex = item.index;
+                selected = true;
             }
             else
             {
@@ -89,25 +93,37 @@
             }
             //item.fillColor = [UIColor orangeColor];
         }
+        if(!selected)
+        {
+            _selectedIndex = -1;
+        }
     }
     if (gesture.state == UIGestureRecognizerStateEnded)
     {
-        NSLog(@"ENDED TAP");
-        
-        for(RMRadialMenuItem *item in _items)
+        for(RMRadialMenuItemView *item in _items)
         {
-            item.fillColor = [UIColor orangeColor];
-            [item setNeedsDisplay];
+            if(item.index != _selectedIndex)
+            {
+                item.fillColor = [UIColor orangeColor];
+                [item setNeedsDisplay];
+            }
             //item.fillColor = [UIColor orangeColor];
         }
-
-        [_delegate radialMenuView:self selectedItemAtIndex:_selectedIndex];
-        
-        
-        [UIView animateWithDuration:0.2 animations:^(void){
+        if(_selectedIndex >= 0)
+        {
+            [_delegate radialMenuView:self selectedItemAtIndex:_selectedIndex];
+        }
+        _selectedIndex = -1;
+        [UIView animateWithDuration:0.15 animations:^(void){
             self.alpha = 0.0f;
         } completion:^(BOOL finished) {
             [self setFrame:CGRectMake(-300, -300, self.frame.size.width, self.frame.size.height)];
+            for(RMRadialMenuItemView *item in _items)
+            {
+                item.fillColor = [UIColor orangeColor];
+                [item setNeedsDisplay];
+                //item.fillColor = [UIColor orangeColor];
+            }
         }];
     }
 
@@ -146,18 +162,18 @@
         for(int i = 0; i < n; i++)
         {
             double c = sqrt(2*pow(33, 2)*(1-cos((_segmentGap*M_PI/180))));
-            angleGap = 2*asin(c/(2*120));
+            angleGap = 2*asin(c/(2*OUTER_RADIUS));
             angleGap = (_segmentGap*M_PI/180) - angleGap;
             alpha = i* sizeArc + i *(_segmentGap*M_PI/180) + (_segmentGap*M_PI/180)/2 - M_PI/2 - sizeArc/2 - angleGap/2;
             alphaLine = alpha + M_PI/2;
             UIBezierPath *segment = [UIBezierPath bezierPath];
             [segment moveToPoint:CGPointMake(_centre.x + sin(alphaLine)*33, _centre.y - cos(alphaLine)*33)];
-            [segment addLineToPoint:CGPointMake(_centre.x + sin(alphaLine - angleGap/2)*120, _centre.y - cos(alphaLine - angleGap/2)*120)];
-            [segment addArcWithCenter:_centre radius:120 startAngle:alpha - angleGap/2 endAngle:alpha + sizeArc + angleGap/2 clockwise:true];
-            [segment addLineToPoint:CGPointMake(_centre.x + sin(alphaLine+sizeArc)*33, _centre.y - cos(alphaLine+sizeArc)*33)];
+            [segment addLineToPoint:CGPointMake(_centre.x + sin(alphaLine - angleGap/2)*OUTER_RADIUS, _centre.y - cos(alphaLine - angleGap/2)*OUTER_RADIUS)];
+            [segment addArcWithCenter:_centre radius:OUTER_RADIUS startAngle:alpha - angleGap/2 endAngle:alpha + sizeArc + angleGap/2 clockwise:true];
+            [segment addLineToPoint:CGPointMake(_centre.x + sin(alphaLine+sizeArc)*INNER_RADIUS, _centre.y - cos(alphaLine+sizeArc)*33)];
             [segment addArcWithCenter:_centre radius:33 startAngle:alpha + sizeArc endAngle:alpha   clockwise:false];
             [segment closePath];
-            RMRadialMenuItem *item = (RMRadialMenuItem*) _items[i];
+            RMRadialMenuItemView *item = (RMRadialMenuItemView*) _items[i];
             [item setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
             item.segmentLayer.path = [segment CGPath];
             [[UIColor colorWithRed: 30/255.0f green:30/255.0f blue:230/255.0f alpha:0.5f] setFill];
@@ -169,7 +185,7 @@
     
     for(int i = 0; i < [_items count]; i++)
     {
-        RMRadialMenuItem *item = (RMRadialMenuItem*) _items[i];
+        RMRadialMenuItemView *item = (RMRadialMenuItemView*) _items[i];
         
         item.segmentLayer.fillColor = item.fillColor.CGColor;
         item.segmentLayer.strokeColor = item.strokeColor.CGColor;

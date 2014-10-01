@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Admin. All rights reserved.
 //
 
-#import "RMRadialMenuItem.h"
+#import "RMRadialMenuItemView.h"
 
-@interface RMRadialMenuItem()
+@interface RMRadialMenuItemView()
 
 //@property (nonatomic, retain) CAShapeLayer *segmentLayer;
 
 @end
 
-@implementation RMRadialMenuItem
+@implementation RMRadialMenuItemView
 
 -(id) init
 {

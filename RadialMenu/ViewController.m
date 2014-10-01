@@ -37,16 +37,16 @@
 }
 -(NSInteger) numberOfItemsInRadialMenuView:(RMRadialMenuView *)radialMenuView
 {
-    return 6;
+    return 4;
 }
 -(void) radialMenuView:(RMRadialMenuView *)radialMenuView selectedItemAtIndex:(NSInteger)index
 {
     NSLog(@"Index %li", index);
 }
 
--(RMRadialMenuItem *) radialMenuView:(RMRadialMenuView *)radialMenuView itemAtIndex:(NSInteger)index
+-(RMRadialMenuItemView *) radialMenuView:(RMRadialMenuView *)radialMenuView itemAtIndex:(NSInteger)index
 {
-    RMRadialMenuItem *item = [[RMRadialMenuItem alloc] init];
+    RMRadialMenuItemView *item = [[RMRadialMenuItemView alloc] init];
     item.fillColor = [[UIColor redColor] colorWithAlphaComponent:(float)index/(NSInteger)(_slider.value * 100)];
     return item;
 }

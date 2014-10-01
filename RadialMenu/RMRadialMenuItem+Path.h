@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RMRadialMenuItem.h"
+#import "RMRadialMenuItemView.h"
 
-@interface RMRadialMenuItem (RMRadialMenuItemWithPath)
+@interface RMRadialMenuItemView (RMRadialMenuItemWithPath)
 @property (nonatomic, retain) CAShapeLayer *segmentLayer;
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RMRadialMenuItem : UIView
+@interface RMRadialMenuItemView : UIView
 @property (nonatomic) UIColor *fillColor;
 @property (nonatomic) UIColor *strokeColor;
 @property int index;

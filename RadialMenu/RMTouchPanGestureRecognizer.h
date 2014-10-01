@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RMTouchDownPanGestureRecognizer : UIGestureRecognizer
+@interface RMTouchPanGestureRecognizer : UIGestureRecognizer
 @property (nonatomic) UITouch *touch;
 @end
