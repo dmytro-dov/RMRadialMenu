@@ -81,14 +81,14 @@
             
             if(found)
             {
-                item.fillColor = [UIColor greenColor];
+                [item darkenSegment];
                 [item setNeedsDisplay];
                 _selectedIndex = item.index;
                 selected = true;
             }
             else
             {
-                item.fillColor = [UIColor orangeColor];
+                [item lightenSegment];
                 [item setNeedsDisplay];
             }
             //item.fillColor = [UIColor orangeColor];
@@ -104,7 +104,7 @@
         {
             if(item.index != _selectedIndex)
             {
-                item.fillColor = [UIColor orangeColor];
+                [item lightenSegment];
                 [item setNeedsDisplay];
             }
             //item.fillColor = [UIColor orangeColor];
@@ -120,7 +120,7 @@
             [self setFrame:CGRectMake(-300, -300, self.frame.size.width, self.frame.size.height)];
             for(RMRadialMenuItemView *item in _items)
             {
-                item.fillColor = [UIColor orangeColor];
+                [item lightenSegment];
                 [item setNeedsDisplay];
                 //item.fillColor = [UIColor orangeColor];
             }
@@ -190,7 +190,7 @@
         item.segmentLayer.fillColor = item.fillColor.CGColor;
         item.segmentLayer.strokeColor = item.strokeColor.CGColor;
         UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:item.segmentLayer.path];
-        //[path fill];
+        [path fill];
         item.index = i;
            [self addSubview:item];
             item.backgroundColor = [UIColor clearColor];

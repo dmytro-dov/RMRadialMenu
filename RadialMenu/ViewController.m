@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _radialMenuView = [[RMRadialMenuView alloc] initWithFrame:CGRectMake(-300, -300, 300, 300)];
+    _radialMenuView = [[RMRadialMenuView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-150, self.view.bounds.size.height/2-150, 300, 300)];
     _radialMenuView.dataSource = self;
     _radialMenuView.delegate = self;
     
@@ -47,7 +47,7 @@
 -(RMRadialMenuItemView *) radialMenuView:(RMRadialMenuView *)radialMenuView itemAtIndex:(NSInteger)index
 {
     RMRadialMenuItemView *item = [[RMRadialMenuItemView alloc] init];
-    item.fillColor = [[UIColor redColor] colorWithAlphaComponent:(float)index/(NSInteger)(_slider.value * 100)];
+    item.fillColor = [UIColor colorWithRed:(246.0/255.0) green:(100.0/255.0) blue:((216.0/255.0)) alpha:0.5] ;
     return item;
 }
 - (void)didReceiveMemoryWarning {

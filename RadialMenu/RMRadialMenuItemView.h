@@ -11,7 +11,10 @@
 @interface RMRadialMenuItemView : UIView
 @property (nonatomic) UIColor *fillColor;
 @property (nonatomic) UIColor *strokeColor;
+@property (readonly) bool darkened;
 @property int index;
 @property (nonatomic, retain) CAShapeLayer *segmentLayer;
 -(id) init;
+-(void)darkenSegment;
+-(void)lightenSegment;
 @end
