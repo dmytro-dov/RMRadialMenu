@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define OUTER_RADIUS 140
+#define INNER_RADIUS 33
 
 @class RMRadialMenuView;
 @class RMRadialMenuItemView;
@@ -32,4 +34,6 @@
 @property (nonatomic) NSArray *items;
 @property (nonatomic, assign) id<RMRadialMenuDataSource> dataSource;
 @property (nonatomic, assign) id<RMRadialMenuDelegate> delegate;
+@property bool isStatic;
+@property (nonatomic) UIView *triggerView;
 @end

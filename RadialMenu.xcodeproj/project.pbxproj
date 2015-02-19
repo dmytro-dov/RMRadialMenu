@@ -13,10 +13,11 @@
 		847ED1C219D0771C00E7D17B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ED1C119D0771C00E7D17B /* AppDelegate.m */; };
 		847ED1C519D0771C00E7D17B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ED1C419D0771C00E7D17B /* ViewController.m */; };
 		847ED1C819D0771C00E7D17B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847ED1C619D0771C00E7D17B /* Main.storyboard */; };
-		847ED1CA19D0771C00E7D17B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847ED1C919D0771C00E7D17B /* Images.xcassets */; };
 		847ED1CD19D0771C00E7D17B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847ED1CB19D0771C00E7D17B /* LaunchScreen.xib */; };
 		847ED1D919D0771C00E7D17B /* RadialMenuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ED1D819D0771C00E7D17B /* RadialMenuTests.m */; };
+		84A0410A1A963F5F00709D52 /* RadialMenuImageItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A041091A963F5F00709D52 /* RadialMenuImageItemView.m */; };
 		84A2156A19D21CA300F378C1 /* RMRadialMenuItem+Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A2156919D21CA300F378C1 /* RMRadialMenuItem+Path.m */; };
+		84E1FC321A9661F000670477 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84E1FC311A9661F000670477 /* Images.xcassets */; };
 		FAAC8EF519DC6D6900F28735 /* RMTouchPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = FAAC8EF419DC6D6900F28735 /* RMTouchPanGestureRecognizer.m */; };
 /* End PBXBuildFile section */
 
@@ -43,13 +44,15 @@
 		847ED1C319D0771C00E7D17B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		847ED1C419D0771C00E7D17B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		847ED1C719D0771C00E7D17B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		847ED1C919D0771C00E7D17B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		847ED1CC19D0771C00E7D17B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		847ED1D219D0771C00E7D17B /* RadialMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadialMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		847ED1D719D0771C00E7D17B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		847ED1D819D0771C00E7D17B /* RadialMenuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadialMenuTests.m; sourceTree = "<group>"; };
+		84A041081A963F5F00709D52 /* RadialMenuImageItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadialMenuImageItemView.h; sourceTree = "<group>"; };
+		84A041091A963F5F00709D52 /* RadialMenuImageItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadialMenuImageItemView.m; sourceTree = "<group>"; };
 		84A2156819D21CA300F378C1 /* RMRadialMenuItem+Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RMRadialMenuItem+Path.h"; sourceTree = "<group>"; };
 		84A2156919D21CA300F378C1 /* RMRadialMenuItem+Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RMRadialMenuItem+Path.m"; sourceTree = "<group>"; };
+		84E1FC311A9661F000670477 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FAAC8EF319DC6D6900F28735 /* RMTouchPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMTouchPanGestureRecognizer.h; sourceTree = "<group>"; };
 		FAAC8EF419DC6D6900F28735 /* RMTouchPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMTouchPanGestureRecognizer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,6 +86,8 @@
 				84A2156919D21CA300F378C1 /* RMRadialMenuItem+Path.m */,
 				8439EDFC19D08C4D00E0BAC1 /* RMRadialMenuItemView.h */,
 				8439EDFD19D08C4D00E0BAC1 /* RMRadialMenuItemView.m */,
+				84A041081A963F5F00709D52 /* RadialMenuImageItemView.h */,
+				84A041091A963F5F00709D52 /* RadialMenuImageItemView.m */,
 			);
 			name = RadialMenu;
 			sourceTree = "<group>";
@@ -114,7 +119,7 @@
 				847ED1C419D0771C00E7D17B /* ViewController.m */,
 				8439EDFF19D08C5400E0BAC1 /* RadialMenu */,
 				847ED1C619D0771C00E7D17B /* Main.storyboard */,
-				847ED1C919D0771C00E7D17B /* Images.xcassets */,
+				84E1FC311A9661F000670477 /* Images.xcassets */,
 				847ED1CB19D0771C00E7D17B /* LaunchScreen.xib */,
 				847ED1BC19D0771C00E7D17B /* Supporting Files */,
 			);
@@ -229,9 +234,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E1FC321A9661F000670477 /* Images.xcassets in Resources */,
 				847ED1C819D0771C00E7D17B /* Main.storyboard in Resources */,
 				847ED1CD19D0771C00E7D17B /* LaunchScreen.xib in Resources */,
-				847ED1CA19D0771C00E7D17B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +257,7 @@
 				847ED1C519D0771C00E7D17B /* ViewController.m in Sources */,
 				8439EDFE19D08C4D00E0BAC1 /* RMRadialMenuItemView.m in Sources */,
 				84A2156A19D21CA300F378C1 /* RMRadialMenuItem+Path.m in Sources */,
+				84A0410A1A963F5F00709D52 /* RadialMenuImageItemView.m in Sources */,
 				8439EDFB19D082D300E0BAC1 /* RMRadialMenuView.m in Sources */,
 				FAAC8EF519DC6D6900F28735 /* RMTouchPanGestureRecognizer.m in Sources */,
 				847ED1C219D0771C00E7D17B /* AppDelegate.m in Sources */,

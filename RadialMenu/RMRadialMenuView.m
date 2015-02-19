@@ -10,8 +10,7 @@
 #import "RMRadialMenuItem+Path.h"
 #import "RMTouchPanGestureRecognizer.h"
 
-#define OUTER_RADIUS 140
-#define INNER_RADIUS 33
+
 
 @interface RMRadialMenuView ()
 
@@ -22,11 +21,12 @@
 
 @property int y;
 @property (nonatomic) UIColor *prevColor;
+@property CGPoint anchor;
 
 @end
 
 @implementation RMRadialMenuView
-
+@synthesize triggerView = _triggerView;
 -(id) initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -38,6 +38,8 @@
         _segmentGap = 9;
         self.backgroundColor = [UIColor clearColor];
         self.alpha = 0.0f;
+        _isStatic = true;
+        _anchor = CGPointMake(frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height/2);
             }
     return self;
 }
@@ -47,15 +49,43 @@
     [self.superview addGestureRecognizer:panRecognizer];
     
 }
+
+-(UIView *) triggerView
+{
+    return _triggerView;
+}
+
+-(void) setTriggerView:(UIView *)triggerView
+{
+    _triggerView = triggerView;
+    _anchor = CGPointMake(_triggerView.frame.origin.x + _triggerView.frame.size.width/2, _triggerView.frame.origin.y + _triggerView.frame.size.height/2);
+}
+
 -(void) dragged: (RMTouchPanGestureRecognizer *) gesture
 {
     if(gesture.state == UIGestureRecognizerStateBegan)
     {
-                [self setFrame:CGRectMake([gesture locationInView:self.superview].x -self.frame.size.width/2, [gesture locationInView:self.superview].y -self.frame.size.height/2, self.frame.size.width, self.frame.size.height)];
+        UITouch *touch = gesture.touch;
         
-        [UIView animateWithDuration:0.2 animations:^(void){
-            self.alpha = 1.0f;
-        }];
+        
+        if ([touch view] == _triggerView)
+        {
+            if(_isStatic)
+            {
+                [self setFrame:CGRectMake(_anchor.x - self.frame.size.width/2, _anchor.y - self.frame.size.height/2, self.frame.size.width, self.frame.size.height)];
+            }
+            else
+            {
+                [self setFrame:CGRectMake([gesture locationInView:self.superview].x -self.frame.size.width/2, [gesture locationInView:self.superview].y -self.frame.size.height/2, self.frame.size.width, self.frame.size.height)];
+            }
+            
+            
+            [UIView animateWithDuration:0.2 animations:^(void){
+                self.alpha = 1.0f;
+            }];
+        }
+        
+        
     }
     if(gesture.state == UIGestureRecognizerStateChanged)
     {
@@ -140,6 +170,7 @@
         [sub removeFromSuperview];
     UIBezierPath *middleCircle = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.frame.size.width/2-_centerRadius, self.frame.size.height/2-_centerRadius, 2*_centerRadius, 2*_centerRadius) ];
     [[UIColor clearColor] setFill];
+    [[UIColor colorWithWhite:0.2 alpha:0.5] setStroke];
     [middleCircle stroke];
     if(!_items || [_items count] != [_dataSource numberOfItemsInRadialMenuView:self])
     {

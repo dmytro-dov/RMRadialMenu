@@ -12,6 +12,7 @@
 @property (nonatomic) UIColor *fillColor;
 @property (nonatomic) UIColor *strokeColor;
 @property (readonly) bool darkened;
+@property (readonly) CGPoint segmentCenter;
 @property int index;
 @property (nonatomic, retain) CAShapeLayer *segmentLayer;
 -(id) init;
