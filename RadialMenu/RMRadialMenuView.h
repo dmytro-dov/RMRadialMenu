@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-#define OUTER_RADIUS 140
-#define INNER_RADIUS 33
+#define INNER_RADIUS 33.0
+#define SECTION_RADIUS 107.0
 
+#ifndef RMINDEXPATH
+#define RMINDEXPATH
+typedef struct
+{
+    int section, segment;
+}RMIndexPath;
+
+RMIndexPath RMIndexPathMake(int section, int segment);
+
+#endif
 @class RMRadialMenuView;
 @class RMRadialMenuItemView;
 
@@ -18,15 +28,16 @@
 @protocol RMRadialMenuDataSource <NSObject>
 
 @required
--(NSInteger) numberOfItemsInRadialMenuView: (RMRadialMenuView *) radialMenuView;
--(RMRadialMenuItemView *) radialMenuView: (RMRadialMenuView *) radialMenuView itemAtIndex: (NSInteger) index;
+-(NSInteger) numberOfItemsInRadialMenuViewSection: (NSInteger) sectionIndex;
+-(NSInteger) numberOfSectionsInRadialMenuView: (RMRadialMenuView *) radialMenuView;
+-(RMRadialMenuItemView *) radialMenuView: (RMRadialMenuView *) radialMenuView itemAtIndexPath: (RMIndexPath) indexPath;
 
 @end
 
 @protocol RMRadialMenuDelegate <NSObject>
 
 @optional
--(void) radialMenuView: (RMRadialMenuView *) radialMenuView selectedItemAtIndex: (NSInteger) index;
+-(void) radialMenuView: (RMRadialMenuView *) radialMenuView selectedItemAtIndexPath: (RMIndexPath) indexPath;
 
 @end
 

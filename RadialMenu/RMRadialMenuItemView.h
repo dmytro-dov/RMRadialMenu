@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "RMRadialMenuView.h"
 @interface RMRadialMenuItemView : UIView
 @property (nonatomic) UIColor *fillColor;
 @property (nonatomic) UIColor *strokeColor;
 @property (readonly) bool darkened;
 @property (readonly) CGPoint segmentCenter;
-@property int index;
+@property (readonly) CGFloat segmentRadius;
+@property RMIndexPath indexPath;
 @property (nonatomic, retain) CAShapeLayer *segmentLayer;
 -(id) init;
 -(void)darkenSegment;
