@@ -103,24 +103,8 @@ RMIndexPath RMIndexPathMake(int section, int segment)
         {
             for(RMRadialMenuItemView *item in _items[i])
             {
-                bool found = false;
                 
-                
-                UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:item.segmentLayer.path];
                 if([path containsPoint:[gesture.touch locationInView:self]])
-                {
-                    //item.fillColor = [UIColor redColor];
-                    //NSLog(@"little end %d", item.index);
-                    
-                    
-                    found = true;
-                }
-                else
-                {
-                    
-                }
-                
-                if(found)
                 {
                     _selectedIndex = RMIndexPathMake(i,item.indexPath.segment);
                     
